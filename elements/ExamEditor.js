@@ -202,7 +202,8 @@ export default class ExamEditor extends React.Component {
                                                 displayId: this.state.displayId,
                                                 title: question.title,
                                                 description: question.description,
-                                                points: question.points
+                                                points: question.points,
+                                                variables: question.variables
                                             });
                                 } else if (question.type === 'TrueFalse') {
                                     this.props.navigation

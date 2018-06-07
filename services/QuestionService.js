@@ -102,6 +102,36 @@ class QuestionService {
             method: 'delete'
         });
     }
+
+    createFillInTheBlankQuestion(fillBlankId, examId) {
+        let url = "http://localhost:8080/api/exam/" + examId + "/fillblank";
+
+        return fetch(url, {
+            body: JSON.stringify(fillBlankId),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST'
+        })
+    }
+
+    updateFillInTheBlankQuestion(fillBlank, fillBlankId) {
+        let url = "http://localhost:8080/api/fillblank/" + fillBlankId;
+        return fetch(url, {
+            body: JSON.stringify(fillBlank),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'PUT'
+        })
+    }
+
+    deleteFillInTheBlankQuestion(fillBlankId) {
+        let url = "http://localhost:8080/api/fillblank/" + fillBlankId;
+        return fetch(url, {
+            method: 'delete'
+        });
+    }
 }
 
 export default QuestionService;
