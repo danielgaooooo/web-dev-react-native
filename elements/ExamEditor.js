@@ -179,7 +179,9 @@ export default class ExamEditor extends React.Component {
                                                 multiId: question.id,
                                                 title: question.title,
                                                 description: question.description,
-                                                points: question.points
+                                                points: question.points,
+                                                correctOption: question.correctOption,
+                                                options: question.options
                                             });
                                 } else if (question.type === 'FillInTheBlank') {
                                     this.props.navigation
@@ -251,7 +253,9 @@ export default class ExamEditor extends React.Component {
                                                     multiId: question.id,
                                                     title: question.title,
                                                     description: question.description,
-                                                    points: question.points
+                                                    points: question.points,
+                                                    correctOption: question.correctOption,
+                                                    options: question.options
                                                 });
                                     } else if (question.type === 'FillInTheBlank') {
                                         this.props.navigation

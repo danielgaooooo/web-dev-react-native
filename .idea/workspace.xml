@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac738032-357f-4b50-89bc-29a66576640a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/elements/ExamEditor.js" afterPath="$PROJECT_DIR$/elements/ExamEditor.js" />
       <change beforePath="$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionEditor.js" afterPath="$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionEditor.js" />
       <change beforePath="$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionWidget.js" afterPath="$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionWidget.js" />
       <change beforePath="$PROJECT_DIR$/services/QuestionService.js" afterPath="$PROJECT_DIR$/services/QuestionService.js" />
@@ -33,8 +34,8 @@
       <file leaf-file-name="MultipleChoiceQuestionEditor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+            <state relative-caret-position="375">
+              <caret line="67" column="37" lean-forward="true" selection-start-line="67" selection-start-column="37" selection-end-line="67" selection-end-column="37" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -45,8 +46,8 @@
       <file leaf-file-name="MultipleChoiceQuestionWidget.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionWidget.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-619">
-              <caret line="88" column="2" lean-forward="true" selection-start-line="88" selection-start-column="2" selection-end-line="88" selection-end-column="2" />
+            <state relative-caret-position="-106">
+              <caret line="88" column="38" lean-forward="true" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -101,8 +102,8 @@
       <file leaf-file-name="ExamEditor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/elements/ExamEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="210" column="23" lean-forward="false" selection-start-line="210" selection-start-column="23" selection-end-line="210" selection-end-column="23" />
+            <state relative-caret-position="240">
+              <caret line="248" column="51" lean-forward="true" selection-start-line="248" selection-start-column="51" selection-end-line="248" selection-end-column="51" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -125,8 +126,8 @@
       <file leaf-file-name="QuestionService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/QuestionService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" column="49" lean-forward="false" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
+            <state relative-caret-position="331">
+              <caret line="57" column="39" lean-forward="true" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -136,8 +137,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>createQuest</find>
       <find>map</find>
+      <find>examId</find>
+      <find>id</find>
+      <find>createQuest</find>
+      <find>.id</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -152,10 +156,10 @@
         <option value="$PROJECT_DIR$/services/ExamService.js" />
         <option value="$PROJECT_DIR$/components/WidgetList.js" />
         <option value="$PROJECT_DIR$/elements/questions/EssayQuestionWidget.js" />
-        <option value="$PROJECT_DIR$/elements/ExamEditor.js" />
         <option value="$PROJECT_DIR$/elements/questions/EssayQuestionEditor.js" />
-        <option value="$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionWidget.js" />
         <option value="$PROJECT_DIR$/services/QuestionService.js" />
+        <option value="$PROJECT_DIR$/elements/ExamEditor.js" />
+        <option value="$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionWidget.js" />
         <option value="$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionEditor.js" />
       </list>
     </option>
@@ -258,12 +262,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1528335528286</updated>
-      <workItem from="1528335529472" duration="8360000" />
+      <workItem from="1528335529472" duration="10186000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8360000" />
+    <option name="totallyTimeSpent" value="10186000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="479" y="23" width="961" height="827" extended-state="0" />
@@ -390,32 +394,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/elements/ExamEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="210" column="23" lean-forward="false" selection-start-line="210" selection-start-column="23" selection-end-line="210" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/elements/questions/TrueFalseQuestionWidget.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="44" column="16" lean-forward="false" selection-start-line="44" selection-start-column="16" selection-end-line="45" selection-end-column="82" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/elements/questions/TrueFalseQuestionEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -440,18 +424,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/elements/questions/TrueFalseQuestionEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/services/QuestionService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="49" lean-forward="false" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
+        <state relative-caret-position="331">
+          <caret line="57" column="39" lean-forward="true" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionWidget.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-619">
-          <caret line="88" column="2" lean-forward="true" selection-start-line="88" selection-start-column="2" selection-end-line="88" selection-end-column="2" />
+        <state relative-caret-position="-106">
+          <caret line="88" column="38" lean-forward="true" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/elements/ExamEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="248" column="51" lean-forward="true" selection-start-line="248" selection-start-column="51" selection-end-line="248" selection-end-column="51" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
@@ -460,8 +464,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/elements/questions/MultipleChoiceQuestionEditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        <state relative-caret-position="375">
+          <caret line="67" column="37" lean-forward="true" selection-start-line="67" selection-start-column="37" selection-end-line="67" selection-end-column="37" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

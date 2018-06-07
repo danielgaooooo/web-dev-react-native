@@ -88,7 +88,7 @@ class MultipleChoiceQuestionWidget extends React.Component {
             description: this.state.description,
             points: this.state.points,
             options: stringOptions,
-            correctOption: this.state.correctOption.value,
+            correctOption: this.state.correctOption.id,
             type: 'MultipleChoice'
         };
 

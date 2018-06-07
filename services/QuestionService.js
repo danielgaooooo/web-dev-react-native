@@ -54,6 +54,17 @@ class QuestionService {
             method: 'POST'
         })
     }
+
+    updateMultipleChoiceQuestion(multi, multiId) {
+        let url = "http://localhost:8080/api/multi/" + multiId;
+        return fetch(url, {
+            body: JSON.stringify(multi),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'PUT'
+        })
+    }
 }
 
 export default QuestionService;
