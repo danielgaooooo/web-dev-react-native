@@ -1,5 +1,5 @@
 ## NOTE: had to create a new repo because I suck with git. 
-Old repo: https://github.com/danielgaooooo/CS4550-react-native
+Old repo: https://github.com/danielgaooooo/CS4550-react-native <br>
 Server repo: https://github.com/danielgaooooo/CS4550-hw1
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
