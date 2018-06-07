@@ -1,3 +1,7 @@
+## NOTE: had to create a new repo because I suck with git. 
+Old repo: https://github.com/danielgaooooo/CS4550-react-native
+Server repo: https://github.com/danielgaooooo/CS4550-hw1
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
