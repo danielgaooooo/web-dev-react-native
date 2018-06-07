@@ -1,12 +1,15 @@
 import React from 'react'
 import {View} from 'react-native'
 import {ListItem} from 'react-native-elements'
+import CourseModuleLessonWidgetService from '../services/CourseModuleLessonWidgetService';
+
 
 class ModuleList extends React.Component {
     static navigationOptions = {title: 'Modules'};
 
     constructor(props) {
         super(props);
+        this.service = CourseModuleLessonWidgetService.instance;
         this.state = {
             modules: [],
             courseId: 1
@@ -18,8 +21,7 @@ class ModuleList extends React.Component {
         this.setState({
             courseId: courseId
         });
-        fetch('http://localhost:8080/api/course/' + courseId + '/module')
-            .then(response => (response.json()))
+        this.service.findAllModules(courseId)
             .then(modules => this.setState({modules: modules}))
     }
 

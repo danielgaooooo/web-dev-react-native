@@ -2,6 +2,8 @@ let _singleton = Symbol();
 
 const localhostUrl = "http://localhost:8080";
 const herokuUrl = "https://cs4550-hw1.herokuapp.com/";
+const phoneUrl = 'http://76.119.15.113';
+
 
 class AssignmentService {
     constructor(singletonToken) {

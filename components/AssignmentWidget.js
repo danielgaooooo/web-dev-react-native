@@ -92,7 +92,7 @@ class AssignmentWidget extends React.Component {
                     <FormInput onChangeText={
                         text => this.updateForm({points: text})
                     }
-                               value={this.state.points}/>
+                               value={this.state.points.toString()}/>
 
                     <Button title="Preview"
                             style={{paddingTop: 20}}
@@ -104,7 +104,7 @@ class AssignmentWidget extends React.Component {
                         {this.state.name}
                     </Text>
                     <View style={{padding: 20}}>
-                        <Text h3>Points: {this.state.points}</Text>
+                        <Text h3>Points: {this.state.points.toString()}</Text>
                         <Text style={{paddingTop: 20, paddingBottom: 20}}>
                             {this.state.description}
                         </Text>

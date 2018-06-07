@@ -1,20 +1,25 @@
 import React from 'react'
 import {View} from 'react-native'
 import {ListItem} from 'react-native-elements'
+import CourseModuleLessonWidgetService from '../services/CourseModuleLessonWidgetService';
 
 class CourseList extends React.Component {
     static navigationOptions = {title: 'Courses'};
 
     constructor(props) {
         super(props);
-        fetch('http://localhost:8080/api/course')
-            .then(response => (response.json()))
+        this.service = CourseModuleLessonWidgetService.instance;
+        this.getCourses();
+        this.state = {
+            courses: []
+        };
+    }
+
+    getCourses() {
+        return this.service.findAllCourses()
             .then(courses => {
                 this.setState({courses: courses})
             });
-        this.state = {
-            courses: []
-        }
     }
 
     render() {

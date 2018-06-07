@@ -9,7 +9,6 @@ import CourseList from './components/CourseList'
 import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
 import WidgetList from './components/WidgetList'
-import QuestionList from './components/QuestionList'
 import AssignmentWidget from './components/AssignmentWidget';
 import AssignmentEditor from './elements/AssignmentEditor';
 import ExamEditor from './elements/ExamEditor';
@@ -54,7 +53,6 @@ const App = createStackNavigator({
     ModuleList,
     LessonList,
     WidgetList,
-    QuestionList,
     AssignmentWidget,
     AssignmentEditor,
     ExamWidget,

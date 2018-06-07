@@ -1,12 +1,15 @@
 import React from 'react'
 import {View, Button, ScrollView} from 'react-native'
 import {ListItem} from 'react-native-elements'
+import CourseModuleLessonWidgetService from '../services/CourseModuleLessonWidgetService';
+
 
 class WidgetList extends React.Component {
-    static navigationOptions = {title: 'Widgets'}
+    static navigationOptions = {title: 'Widgets'};
 
     constructor(props) {
         super(props);
+        this.service = CourseModuleLessonWidgetService.instance;
         this.state = {
             widgets: [],
             courseId: 1,
@@ -22,8 +25,7 @@ class WidgetList extends React.Component {
         this.setState({
             lessonId: lessonId
         }, () => (
-            fetch("http://localhost:8080/api/lesson/" + lessonId + "/widget")
-                .then(response => (response.json()))
+            this.service.findAllWidgets(lessonId)
                 .then(widgets => this.setState({widgets}))
         ));
     }
@@ -34,8 +36,7 @@ class WidgetList extends React.Component {
         this.setState({
             lessonId: lessonId
         }, () => (
-            fetch("http://localhost:8080/api/lesson/" + lessonId + "/widget")
-                .then(response => (response.json()))
+            this.service.findAllWidgets(lessonId)
                 .then(widgets => this.setState({widgets}))
         ));
     }
@@ -63,23 +64,23 @@ class WidgetList extends React.Component {
                                 if (widget.widgetType === 'Assignment') {
                                     this.props.navigation
                                         .navigate('AssignmentEditor',
-                                        {
-                                            assignmentId: widget.id,
-                                            name: widget.name,
-                                            description: widget.description,
-                                            points: widget.points,
-                                            lessonId: state.lessonId
-                                        })
+                                            {
+                                                assignmentId: widget.id,
+                                                name: widget.name,
+                                                description: widget.description,
+                                                points: widget.points,
+                                                lessonId: state.lessonId
+                                            })
                                 } else if (widget.widgetType === 'Exam') {
                                     this.props.navigation
                                         .navigate('ExamEditor',
-                                        {
-                                            examId: widget.id,
-                                            points: widget.points,
-                                            name: widget.name,
-                                            description: widget.description,
-                                            lessonId: state.lessonId
-                                        })
+                                            {
+                                                examId: widget.id,
+                                                points: widget.points,
+                                                name: widget.name,
+                                                description: widget.description,
+                                                lessonId: state.lessonId
+                                            })
                                 }
                                 else {
                                     this.props.navigation

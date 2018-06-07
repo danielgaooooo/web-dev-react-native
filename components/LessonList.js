@@ -1,12 +1,15 @@
 import React from 'react'
 import {View, Button} from 'react-native'
 import {ListItem} from 'react-native-elements'
+import CourseModuleLessonWidgetService from '../services/CourseModuleLessonWidgetService';
+
 
 class LessonList extends React.Component {
     static navigationOptions = {title: 'Lessons'};
 
     constructor(props) {
         super(props);
+        this.service = CourseModuleLessonWidgetService.instance;
         this.state = {
             lessons: [],
             courseId: 1,
@@ -18,8 +21,7 @@ class LessonList extends React.Component {
         const {navigation} = this.props;
         const courseId = navigation.getParam("courseId");
         const moduleId = navigation.getParam("moduleId");
-        fetch("http://localhost:8080/api/course/" + courseId + "/module/" + moduleId + "/lesson")
-            .then(response => (response.json()))
+        this.service.findAllLessons(courseId, moduleId)
             .then(lessons => this.setState({lessons}))
     }
 
