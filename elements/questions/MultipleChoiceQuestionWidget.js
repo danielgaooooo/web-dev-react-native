@@ -1,6 +1,6 @@
 import React from 'react'
-import {View, TextInput} from 'react-native'
-import {Text, Button, ListItem} from 'react-native-elements'
+import {View, TextInput, Alert} from 'react-native'
+import {Text, Button, ListItem, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput} from 'react-native-elements'
 
 class MultipleChoiceQuestionWidget extends React.Component {
@@ -13,7 +13,7 @@ class MultipleChoiceQuestionWidget extends React.Component {
             title: 'Default title',
             description: 'Default description.',
             points: 0,
-            options: '',
+            options: [],
             preview: false,
             displayId: 0
         };
@@ -22,6 +22,10 @@ class MultipleChoiceQuestionWidget extends React.Component {
         this.previewOff = this.previewOff.bind(this);
         this.save = this.save.bind(this);
         this.cancel = this.cancel.bind(this);
+    }
+
+    componentWillReceiveProps(newProps) {
+        Alert.alert("Hello??")
     }
 
     componentDidMount() {
@@ -33,6 +37,27 @@ class MultipleChoiceQuestionWidget extends React.Component {
             displayId: displayId,
             examId: examId,
         })
+    }
+
+    addOption() {
+        let options = [
+            ...this.state.options,
+            {
+                id: this.state.options.length,
+                value: ''
+            }
+        ];
+        this.setState({options: options});
+    }
+
+    updateOption(text, index) {
+        let options = this.state.options.filter(option => {
+            if (option.id === index) {
+                option.value = text
+            }
+            return true;
+        });
+        this.setState({options: options});
     }
 
     updateForm(newState) {
@@ -69,27 +94,37 @@ class MultipleChoiceQuestionWidget extends React.Component {
                                value={this.state.title}/>
 
                     <FormLabel>Description</FormLabel>
-                    <TextInput onChangeText={
-                        text => this.updateForm({description: text})
-                    }
-                               multiline={true}
-                               style={{padding: 20}}
-                               placeholder={this.state.description}
-                               value={this.state.description}
-                               backgroundColor="white"/>
+                    <View style={{padding: 20}}>
+                        <TextInput onChangeText={
+                            text => this.updateForm({description: text})
+                        }
+                                   multiline={true}
+                                   style={{padding: 20}}
+                                   placeholder={this.state.description}
+                                   value={this.state.description}
+                                   backgroundColor="white"/>
+                    </View>
 
                     <FormLabel>Choices (separate each by new line)</FormLabel>
-                    <TextInput onChangeText={
-                        text => this.updateForm({options: text})
-                    }
-                               multiline={true}
-                               placeholder={this.state.options}
-                               value={this.state.options}
-                               style={{padding: 20}}
-                               backgroundColor="white"/>
+                    <View style={{padding: 20}}>
+                        {this.state.options.map((option, index) => (
+                            <View>
+                                <FormInput value={option.value}
+                                           onChangeText={text =>
+                                               this.updateOption(text, index)
+                                           }/>
+                                <CheckBox onPress={() => (Alert.alert('checkmate'))}
+                                          checked={false} title='The answer is true'/>
+                            </View>
+                        ))}
+                        <Button title="Add new option"
+                                style={{paddingTop: 20}}
+                                backgroundColor="blue"
+                                onPress={() => this.addOption()}/>
+                    </View>
 
                     <FormLabel>Points</FormLabel>
-                    <FormInput onChangeTest={
+                    <FormInput onChangeText={
                         text => this.updateForm({points: text})
                     }
                                placeholder={this.state.points.toString()}
@@ -102,13 +137,14 @@ class MultipleChoiceQuestionWidget extends React.Component {
                 }
 
 
-
                 {this.state.preview &&
                 <View style={{padding: 20}}>
                     <Text h2>{this.state.title}</Text>
                     <Text>{this.state.description}</Text>
                     <Text h3>Points: {this.state.points.toString()}</Text>
-                    {this.state.options.split("\n").map(item => (<ListItem title={item}/>))}
+                    {this.state.options.map(item => (
+                        <ListItem title={item.value}/>
+                    ))}
                     <Button title="Back to editing"
                             style={{paddingTop: 20}}
                             backgroundColor="grey"
