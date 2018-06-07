@@ -1,5 +1,8 @@
 let _singleton = Symbol();
 
+const localhostUrl = "http://localhost:8080";
+const herokuUrl = "https://cs4550-hw1.herokuapp.com/";
+
 class QuestionService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -14,7 +17,7 @@ class QuestionService {
 
 
     createEssayQuestion(essay, examId) {
-        let url = "http://localhost:8080/api/exam/" + examId + "/essay";
+        let url = herokuUrl + "/api/exam/" + examId + "/essay";
 
         return fetch(url, {
             body: JSON.stringify(essay),
@@ -26,14 +29,14 @@ class QuestionService {
     }
 
     deleteEssayQuestion(essayId) {
-        let url = "http://localhost:8080/api/essay/" + essayId;
+        let url = herokuUrl + "/api/essay/" + essayId;
         return fetch(url, {
             method: 'delete'
         });
     }
 
     updateEssayQuestion(essay, essayId) {
-        let url = "http://localhost:8080/api/essay/" + essayId;
+        let url = herokuUrl + "/api/essay/" + essayId;
         return fetch(url, {
             body: JSON.stringify(essay),
             headers: {
@@ -44,7 +47,7 @@ class QuestionService {
     }
 
     createMultipleChoiceQuestion(multi, examId) {
-        let url = "http://localhost:8080/api/exam/" + examId + "/multi";
+        let url = herokuUrl + "/api/exam/" + examId + "/multi";
 
         return fetch(url, {
             body: JSON.stringify(multi),
@@ -56,7 +59,7 @@ class QuestionService {
     }
 
     updateMultipleChoiceQuestion(multi, multiId) {
-        let url = "http://localhost:8080/api/multi/" + multiId;
+        let url = herokuUrl + "/api/multi/" + multiId;
         return fetch(url, {
             body: JSON.stringify(multi),
             headers: {
@@ -67,14 +70,14 @@ class QuestionService {
     }
 
     deleteMultipleChoiceQuestion(multiId) {
-        let url = "http://localhost:8080/api/multi/" + multiId;
+        let url = herokuUrl + "/api/multi/" + multiId;
         return fetch(url, {
             method: 'delete'
         });
     }
 
     createTrueFalseQuestion(truefalse, examId) {
-        let url = "http://localhost:8080/api/exam/" + examId + "/truefalse";
+        let url = herokuUrl + "/api/exam/" + examId + "/truefalse";
 
         return fetch(url, {
             body: JSON.stringify(truefalse),
@@ -86,7 +89,7 @@ class QuestionService {
     }
 
     updateTrueFalseQuestion(truefalse, truefalseId) {
-        let url = "http://localhost:8080/api/truefalse/" + truefalseId;
+        let url = herokuUrl + "/api/truefalse/" + truefalseId;
         return fetch(url, {
             body: JSON.stringify(truefalse),
             headers: {
@@ -97,14 +100,14 @@ class QuestionService {
     }
 
     deleteTrueFalseQuestion(truefalseId) {
-        let url = "http://localhost:8080/api/truefalse/" + truefalseId;
+        let url = herokuUrl + "/api/truefalse/" + truefalseId;
         return fetch(url, {
             method: 'delete'
         });
     }
 
     createFillInTheBlankQuestion(fillBlankId, examId) {
-        let url = "http://localhost:8080/api/exam/" + examId + "/fillblank";
+        let url = herokuUrl + "/api/exam/" + examId + "/fillblank";
 
         return fetch(url, {
             body: JSON.stringify(fillBlankId),
@@ -116,7 +119,7 @@ class QuestionService {
     }
 
     updateFillInTheBlankQuestion(fillBlank, fillBlankId) {
-        let url = "http://localhost:8080/api/fillblank/" + fillBlankId;
+        let url = herokuUrl + "/api/fillblank/" + fillBlankId;
         return fetch(url, {
             body: JSON.stringify(fillBlank),
             headers: {
@@ -127,7 +130,7 @@ class QuestionService {
     }
 
     deleteFillInTheBlankQuestion(fillBlankId) {
-        let url = "http://localhost:8080/api/fillblank/" + fillBlankId;
+        let url = herokuUrl + "/api/fillblank/" + fillBlankId;
         return fetch(url, {
             method: 'delete'
         });

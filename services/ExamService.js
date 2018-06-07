@@ -1,5 +1,8 @@
 let _singleton = Symbol();
 
+const localhostUrl = "http://localhost:8080";
+const herokuUrl = "https://cs4550-hw1.herokuapp.com/";
+
 class ExamService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -13,14 +16,14 @@ class ExamService {
     }
 
     deleteExam(examId) {
-        let url = "http://localhost:8080/api/exam/" + examId;
+        let url = herokuUrl + "/api/exam/" + examId;
         return fetch(url, {
             method: 'delete'
         })
     }
 
     createExam(exam, lessonId) {
-        let url = "http://localhost:8080/api/lesson/" + lessonId + "/exam";
+        let url = herokuUrl + "/api/lesson/" + lessonId + "/exam";
 
         return fetch(url, {
             body: JSON.stringify(exam),
@@ -34,7 +37,7 @@ class ExamService {
     }
 
     updateExam(exam, examId) {
-        let url = "http://localhost:8080/api/exam/" + examId;
+        let url = herokuUrl + "/api/exam/" + examId;
         return fetch(url, {
             body: JSON.stringify(exam),
             headers: {
@@ -45,7 +48,7 @@ class ExamService {
     }
 
     findAllQuestionsForExam(examId) {
-        return fetch('http://localhost:8080/api/exam/' + examId + '/question')
+        return fetch(herokuUrl + '/api/exam/' + examId + '/question')
             .then(response => (response.json()))
     }
 }
