@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, TextInput, Alert, ScrollView} from 'react-native'
 import {FormLabel, FormInput, Text, Button} from 'react-native-elements'
+import QuestionService from '../../services/QuestionService'
 
 
 class EssayQuestionWidget extends React.Component {
@@ -17,6 +18,7 @@ class EssayQuestionWidget extends React.Component {
             preview: false,
             displayId: 0
         };
+        this.questionService = QuestionService.instance;
         this.preview = this.preview.bind(this);
         this.previewOff = this.previewOff.bind(this);
         this.confirm = this.confirm.bind(this);
@@ -36,15 +38,8 @@ class EssayQuestionWidget extends React.Component {
             type: 'Essay'
         };
 
-        let url = "http://localhost:8080/api/exam/" + this.state.examId.toString() + "/essay";
-
-        fetch(url, {
-            body: JSON.stringify(essay),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST'
-        }).then(() => this.cancel());
+        this.questionService.createEssayQuestion(essay, this.state.examId.toString())
+            .then(() => this.cancel());
     }
 
     componentDidMount() {

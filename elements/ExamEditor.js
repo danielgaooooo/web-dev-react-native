@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Picker, TextInput, ScrollView} from 'react-native'
+import {View, Picker, TextInput, ScrollView, Alert} from 'react-native'
 import {ListItem, Text, Button, FormLabel, FormInput} from 'react-native-elements'
 import ExamService from '../services/ExamService';
 
@@ -34,19 +34,16 @@ export default class ExamEditor extends React.Component {
         ));
     }
 
-
     componentDidMount() {
         const examId = this.props.navigation.getParam("examId");
         const name = this.props.navigation.getParam("name");
         const description = this.props.navigation.getParam("description");
-        const points = this.props.navigation.getParam("points");
         const lessonId = this.props.navigation.getParam("lessonId");
 
         this.setState({
             examId: examId,
             name: name,
             description: description,
-            points: points,
             lessonId: lessonId
         });
         this.examService.findAllQuestionsForExam(examId)
@@ -161,11 +158,53 @@ export default class ExamEditor extends React.Component {
                     <Text style={{padding: 20}} h2>Exam Questions</Text>
                     {this.state.questions.map((question, index) => (
                         <ListItem
-                            onPress={() => this.props.navigation
-                                .navigate("EssayQuestionEditor", {
-                                    examId: this.state.examId,
-                                    displayId: this.state.displayId
-                                })}
+                            onPress={() => {
+                                if (question.type === 'Essay') {
+                                    this.props.navigation
+                                        .navigate('EssayQuestionEditor',
+                                            {
+                                                examId: this.state.examId,
+                                                essayId: question.id,
+                                                displayId: this.state.displayId,
+                                                title: question.title,
+                                                description: question.description,
+                                                points: question.points
+                                            });
+                                } else if (question.type === 'MultipleChoice') {
+                                    this.props.navigation
+                                        .navigate('MultipleChoiceQuestionEditor',
+                                            {
+                                                examId: this.state.examId,
+                                                displayId: this.state.displayId,
+                                                multiId: question.id,
+                                                title: question.title,
+                                                description: question.description,
+                                                points: question.points
+                                            });
+                                } else if (question.type === 'FillInTheBlank') {
+                                    this.props.navigation
+                                        .navigate('FillInTheBlankQuestionEditor',
+                                            {
+                                                examId: this.state.examId,
+                                                fillId: question.id,
+                                                displayId: this.state.displayId,
+                                                title: question.title,
+                                                description: question.description,
+                                                points: question.points
+                                            });
+                                } else if (question.type === 'TrueFalse') {
+                                    this.props.navigation
+                                        .navigate('TrueFalseQuestionEditor',
+                                            {
+                                                examId: this.state.examId,
+                                                trueId: question.id,
+                                                displayId: this.state.displayId,
+                                                title: question.title,
+                                                description: question.description,
+                                                points: question.points
+                                            });
+                                }
+                            }}
                             key={index + 1}
                             subtitle={question.type}
                             title={question.title}/>
@@ -188,55 +227,60 @@ export default class ExamEditor extends React.Component {
                     </View>
 
                     <Text style={{padding: 20}} h2>Exam Questions</Text>
-                    {this.state.questions.map((question, index) => (
-                        <ListItem
-                            onPress={() => {
-                                if (question.type === 'Essay') {
-                                    this.props.navigation
-                                        .navigate("EssayQuestionEditor", {
-                                            examId: this.state.examId,
-                                            essayId: question.id,
-                                            displayId: this.state.displayId,
-                                            title: question.title,
-                                            description: question.description,
-                                            points: question.points
-                                        })
-                                } else if (question.type === 'MultipleChoice') {
-                                    this.props.navigation
-                                        .navigate("MultipleChoiceQuestionEditor", {
-                                            examId: this.state.examId,
-                                            displayId: this.state.displayId,
-                                            multiId: question.id,
-                                            title: question.title,
-                                            description: question.description,
-                                            points: question.points
-                                        })
-                                } else if (question.type === 'FillInTheBlank') {
-                                    this.props.navigation
-                                        .navigate("FillInTheBlankQuestionEditor", {
-                                            examId: this.state.examId,
-                                            fillId: question.id,
-                                            displayId: this.state.displayId,
-                                            title: question.title,
-                                            description: question.description,
-                                            points: question.points
-                                        })
-                                } else if (question.type === 'TrueFalse') {
-                                    this.props.navigation
-                                        .navigate("TrueFalseQuestionEditor", {
-                                            examId: this.state.examId,
-                                            trueId: question.id,
-                                            displayId: this.state.displayId,
-                                            title: question.title,
-                                            description: question.description,
-                                            points: question.points
-                                        })
-                                }
-                            }}
-                            key={index + 1}
-                            subtitle={question.type}
-                            title={question.title}/>
-                    ))}
+                    {this.state.questions.map(
+                        (question, index) => (
+                            <ListItem
+                                onPress={() => {
+                                    if (question.type === 'Essay') {
+                                        this.props.navigation
+                                            .navigate('EssayQuestionEditor',
+                                                {
+                                                    examId: this.state.examId,
+                                                    essayId: question.id,
+                                                    displayId: this.state.displayId,
+                                                    title: question.title,
+                                                    description: question.description,
+                                                    points: question.points
+                                                });
+                                    } else if (question.type === 'MultipleChoice') {
+                                        this.props.navigation
+                                            .navigate('MultipleChoiceQuestionEditor',
+                                                {
+                                                    examId: this.state.examId,
+                                                    displayId: this.state.displayId,
+                                                    multiId: question.id,
+                                                    title: question.title,
+                                                    description: question.description,
+                                                    points: question.points
+                                                });
+                                    } else if (question.type === 'FillInTheBlank') {
+                                        this.props.navigation
+                                            .navigate('FillInTheBlankQuestionEditor',
+                                                {
+                                                    examId: this.state.examId,
+                                                    fillId: question.id,
+                                                    displayId: this.state.displayId,
+                                                    title: question.title,
+                                                    description: question.description,
+                                                    points: question.points
+                                                });
+                                    } else if (question.type === 'TrueFalse') {
+                                        this.props.navigation
+                                            .navigate('TrueFalseQuestionEditor',
+                                                {
+                                                    examId: this.state.examId,
+                                                    trueId: question.id,
+                                                    displayId: this.state.displayId,
+                                                    title: question.title,
+                                                    description: question.description,
+                                                    points: question.points
+                                                });
+                                    }
+                                }}
+                                key={index + 1}
+                                subtitle={question.type}
+                                title={question.title}/>
+                        ))}
 
                     <Button onPress={() => this.previewOff()}
                             style={{paddingTop: 20}}
@@ -254,5 +298,4 @@ export default class ExamEditor extends React.Component {
             </ScrollView>
         )
     }
-
 }

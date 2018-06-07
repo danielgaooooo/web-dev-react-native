@@ -22,7 +22,7 @@ class ExamService {
     createExam(exam, lessonId) {
         let url = "http://localhost:8080/api/lesson/" + lessonId + "/exam";
 
-        fetch(url, {
+        return fetch(url, {
             body: JSON.stringify(exam),
             headers: {
                 'content-type': 'application/json'
@@ -45,7 +45,7 @@ class ExamService {
     }
 
     findAllQuestionsForExam(examId) {
-        fetch('http://localhost:8080/api/exam/' + examId + '/question')
+        return fetch('http://localhost:8080/api/exam/' + examId + '/question')
             .then(response => (response.json()))
     }
 }

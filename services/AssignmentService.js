@@ -22,7 +22,7 @@ class AssignmentService {
     createAssignment(assignment, lessonId) {
         let url = "http://localhost:8080/api/lesson/" + lessonId + "/assignment";
 
-        fetch(url, {
+        return fetch(url, {
             body: JSON.stringify(assignment),
             headers: {
                 'content-type': 'application/json'

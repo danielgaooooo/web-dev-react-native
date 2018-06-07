@@ -61,7 +61,8 @@ class WidgetList extends React.Component {
                         <ListItem
                             onPress={() => {
                                 if (widget.widgetType === 'Assignment') {
-                                    this.props.navigation.navigate('AssignmentEditor',
+                                    this.props.navigation
+                                        .navigate('AssignmentEditor',
                                         {
                                             assignmentId: widget.id,
                                             name: widget.name,
@@ -70,12 +71,12 @@ class WidgetList extends React.Component {
                                             lessonId: state.lessonId
                                         })
                                 } else if (widget.widgetType === 'Exam') {
-                                    this.props.navigation.navigate('ExamEditor',
+                                    this.props.navigation
+                                        .navigate('ExamEditor',
                                         {
                                             examId: widget.id,
                                             name: widget.name,
                                             description: widget.description,
-                                            points: widget.points,
                                             lessonId: state.lessonId
                                         })
                                 }

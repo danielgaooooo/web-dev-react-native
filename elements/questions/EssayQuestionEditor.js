@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, ScrollView, TextInput} from 'react-native';
 import {Button, FormInput, FormLabel, Text} from 'react-native-elements'
+import QuestionService from '../../services/QuestionService'
 
 export default class EssayQuestionEditor extends React.Component {
     static navigationOptions = {title: 'Editing Essay Question'};
@@ -15,6 +16,7 @@ export default class EssayQuestionEditor extends React.Component {
             preview: false,
             displayId: 0
         };
+        this.questionService = QuestionService.instance;
         this.preview = this.preview.bind(this);
         this.previewOff = this.previewOff.bind(this);
         this.confirm = this.confirm.bind(this);
@@ -23,10 +25,8 @@ export default class EssayQuestionEditor extends React.Component {
     }
 
     delete() {
-        let url = "http://localhost:8080/api/essay/" + this.state.essayId.toString();
-        return fetch(url, {
-            method: 'delete'
-        }).then(() => this.cancel());
+        this.questionService.deleteEssayQuestion(this.state.essayId.toString())
+            .then(() => this.cancel());
     }
 
 
@@ -43,25 +43,17 @@ export default class EssayQuestionEditor extends React.Component {
             type: 'Essay'
         };
 
-        let url = "http://localhost:8080/api/essay/" + this.state.essayId.toString();
-
-        fetch(url, {
-            body: JSON.stringify(essay),
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'PUT'
-        }).then(() => this.cancel());
+        this.questionService.updateEssayQuestion(essay, this.state.essayId.toString())
+            .then(() => this.cancel());
     }
 
     componentDidMount() {
-        const {navigation} = this.props;
-        const examId = navigation.getParam("examId");
-        const displayId = navigation.getParam("displayId");
-        const title = navigation.getParam("title");
-        const description = navigation.getParam("description");
-        const points = navigation.getParam("points");
-        const essayId = navigation.getParam("essayId");
+        const examId = this.props.navigation.getParam("examId");
+        const displayId = this.props.navigation.getParam("displayId");
+        const title = this.props.navigation.getParam("title");
+        const description = this.props.navigation.getParam("description");
+        const points = this.props.navigation.getParam("points");
+        const essayId = this.props.navigation.getParam("essayId");
 
 
         this.setState({
@@ -134,9 +126,11 @@ export default class EssayQuestionEditor extends React.Component {
                     </View>
                     <View style={{padding: 20}}>
                         <TextInput multiline={true}
-                                   style={{padding: 10,
+                                   style={{
+                                       padding: 10,
                                        height: 100,
-                                       backgroundColor: 'white'}}/>
+                                       backgroundColor: 'white'
+                                   }}/>
                     </View>
                     <Button onPress={() => this.previewOff()}
                             style={{paddingTop: 20}}
