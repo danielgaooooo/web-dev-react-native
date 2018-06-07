@@ -132,6 +132,11 @@ export default class MultipleChoiceQuestionEditor extends React.Component {
         this.props.navigation.navigate('ExamEditor', {displayId: displayId + 1});
     }
 
+    delete() {
+        this.questionService.deleteMultipleChoiceQuestion(this.state.multiId.toString())
+            .then(() => this.cancel());
+    }
+
     render() {
         return (
             <ScrollView>
@@ -221,7 +226,7 @@ export default class MultipleChoiceQuestionEditor extends React.Component {
                 }
 
                 <Button backgroundColor="red"
-                        onPress={() => this.cancel()}
+                        onPress={() => this.delete()}
                         color="white"
                         title="Delete"/>
                 <Button backgroundColor="green"

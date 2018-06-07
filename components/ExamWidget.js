@@ -16,6 +16,7 @@ export default class ExamWidget extends React.Component {
             description: 'Default description',
             preview: false,
             displayId: 0,
+            points: 0,
             questionType: 'MC'
         };
         this.examService = ExamService.instance;
@@ -34,6 +35,7 @@ export default class ExamWidget extends React.Component {
         let exam = {
             name: this.state.name,
             description: this.state.description,
+            points: this.state.points,
             widgetType: 'Exam'
         };
         this.examService.createExam(exam, this.state.lessonId.toString())
@@ -88,6 +90,12 @@ export default class ExamWidget extends React.Component {
                                    style={{backgroundColor: "white", padding: 10}}/>
                     </View>
 
+                    <FormLabel>Points</FormLabel>
+                    <FormInput onChangeText={
+                        text => this.updateForm({points: text})}
+                               value={this.state.points.toString()}
+                    />
+
                     <Button title="Preview"
                             style={{paddingTop: 20}}
                             backgroundColor="grey"
@@ -97,7 +105,12 @@ export default class ExamWidget extends React.Component {
                     <Text style={{backgroundColor: 'grey', padding: 20}} h2>
                         {this.state.name}
                     </Text>
-
+                    <View style={{padding: 20}}>
+                        <Text style={{paddingTop: 20, paddingBottom: 20}}>
+                            {this.state.description}
+                        </Text>
+                        <Text h4>Points: {this.state.points.toString()}</Text>
+                    </View>
                     <Button onPress={() => this.previewOff()}
                             style={{paddingTop: 20}}
                             backgroundColor="grey"

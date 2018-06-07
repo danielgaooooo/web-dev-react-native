@@ -1,10 +1,8 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View, ScrollView, TextInput} from 'react-native'
 import {Text, Button, CheckBox} from 'react-native-elements'
-import {
-    FormLabel, FormInput, FormValidationMessage
-}
-    from 'react-native-elements'
+import {FormLabel, FormInput} from 'react-native-elements'
+import QuestionService from "../../services/QuestionService";
 
 class TrueFalseQuestionWidget extends React.Component {
     static navigationOptions = {title: "True False"};
@@ -12,51 +10,137 @@ class TrueFalseQuestionWidget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            description: '',
+            title: 'Default title',
+            description: 'Type your question here',
             points: 0,
-            isTrue: true
-        }
+            isTrue: true,
+            preview: false,
+            displayId: 0
+        };
+        this.questionService = QuestionService.instance;
+        this.updateForm = this.updateForm.bind(this);
+        this.preview = this.preview.bind(this);
+        this.previewOff = this.previewOff.bind(this);
+        this.save = this.save.bind(this);
+        this.cancel = this.cancel.bind(this);
+    }
+
+    componentDidMount() {
+        const {navigation} = this.props;
+        const displayId = navigation.getParam("displayId");
+        const examId = navigation.getParam("examId");
+
+        this.setState({
+            displayId: displayId,
+            examId: examId,
+        })
     }
 
     updateForm(newState) {
         this.setState(newState)
     }
 
+    preview() {
+        this.setState({preview: true})
+    }
+
+    previewOff() {
+        this.setState({preview: false})
+    }
+
+    save() {
+        let truefalse = {
+            title: this.state.title,
+            description: this.state.description,
+            points: this.state.points,
+            isTrue: this.state.isTrue,
+            type: 'TrueFalse'
+        };
+
+        this.questionService.createTrueFalseQuestion(truefalse, this.state.examId.toString())
+            .then(() => this.cancel());
+    }
+
+    cancel() {
+        let displayId = this.state.displayId;
+        this.props.navigation.navigate('ExamEditor', {displayId: displayId + 1});
+    }
+
     render() {
         return (
-            <View>
-                <FormLabel>Title</FormLabel>
-                <FormInput onChangeText={
-                    text => this.updateForm({title: text})
-                }/>
-                <FormValidationMessage>
-                    Title is required
-                </FormValidationMessage>
+            <ScrollView>
+                {!this.state.preview &&
+                <View>
+                    <FormLabel>Title</FormLabel>
+                    <FormInput onChangeText={
+                        text => this.updateForm({title: text})
+                    }
+                               placeholder={this.state.title}
+                               value={
+                                   (this.state.title === 'Default title') ? '' : this.state.title
+                               }/>
 
-                <FormLabel>Description</FormLabel>
-                <FormInput onChangeText={
-                    text => this.updateForm({description: text})
-                }/>
-                <FormValidationMessage>
-                    Description is required
-                </FormValidationMessage>
+                    <FormLabel>Description</FormLabel>
+                    <View style={{padding: 20}}>
+                        <TextInput onChangeText={
+                            text => this.updateForm({description: text})
+                        }
+                                   multiline={true}
+                                   style={{padding: 20}}
+                                   placeholder={this.state.description}
+                                   value={
+                                       (this.state.description === 'Type your question here') ? '' : this.state.description
+                                   }
+                                   backgroundColor="white"/>
+                    </View>
 
-                <CheckBox onPress={() => this.updateForm({isTrue: !this.state.isTrue})}
-                          checked={this.state.isTrue} title='The answer is true'/>
+                    <FormLabel>Points</FormLabel>
+                    <FormInput onChangeText={
+                        text => this.updateForm({points: text})
+                    }
+                               placeholder={this.state.points.toString()}
+                               value={this.state.points.toString()}/>
+
+                    <CheckBox onPress={() => this.updateForm({isTrue: !this.state.isTrue})}
+                              checked={this.state.isTrue} title='Select to mark answer as true'/>
+
+                    <Button title="Preview"
+                            style={{paddingTop: 20}}
+                            backgroundColor="grey"
+                            onPress={() => this.preview()}/>
+                </View>
+                }
+
+
+                {this.state.preview &&
+                <View>
+                    <View style={{padding: 20}}>
+                        <Text h2>{this.state.title}</Text>
+                        <Text h4>Points: {this.state.points.toString()}</Text>
+                        <Text>{this.state.description}</Text>
+                    </View>
+                    <View style={{padding: 5, flex: 1, flexDirection: 'row'}}>
+                        <CheckBox title='True'/>
+                        <CheckBox title='False'/>
+                    </View>
+                    <Button title="Back to editing"
+                            style={{paddingTop: 20}}
+                            backgroundColor="grey"
+                            onPress={() => this.previewOff()}/>
+                </View>
+                }
 
                 <Button backgroundColor="green"
+                        onPress={() => this.save()}
+                        style={{paddingTop: 20}}
                         color="white"
                         title="Save"/>
                 <Button backgroundColor="red"
+                        onPress={() => this.cancel()}
                         color="white"
                         title="Cancel"/>
 
-                <Text h3>Preview</Text>
-                <Text h2>{this.state.title}</Text>
-                <Text>{this.state.description}</Text>
-
-            </View>
+            </ScrollView>
         )
     }
 

@@ -39,12 +39,15 @@ export default class ExamEditor extends React.Component {
         const name = this.props.navigation.getParam("name");
         const description = this.props.navigation.getParam("description");
         const lessonId = this.props.navigation.getParam("lessonId");
+        const points = this.props.navigation.getParam("points");
+
 
         this.setState({
             examId: examId,
             name: name,
             description: description,
-            lessonId: lessonId
+            lessonId: lessonId,
+            points: points.toString()
         });
         this.examService.findAllQuestionsForExam(examId)
             .then(questions => this.setState({questions: questions}))
@@ -100,6 +103,7 @@ export default class ExamEditor extends React.Component {
         let exam = {
             name: this.state.name,
             description: this.state.description,
+            points: parseInt(this.state.points),
             widgetType: "Exam"
         };
         this.examService.updateExam(exam, this.state.examId.toString())
@@ -138,6 +142,12 @@ export default class ExamEditor extends React.Component {
                                    value={this.state.description}
                                    style={{backgroundColor: "white", padding: 10}}/>
                     </View>
+
+                    <FormLabel>Points</FormLabel>
+                    <FormInput onChangeText={
+                        text => this.updateForm({points: text})}
+                               value={this.state.points}
+                    />
 
                     <View>
                         <Picker
@@ -203,7 +213,8 @@ export default class ExamEditor extends React.Component {
                                                 displayId: this.state.displayId,
                                                 title: question.title,
                                                 description: question.description,
-                                                points: question.points
+                                                points: question.points,
+                                                isTrue: question.isTrue
                                             });
                                 }
                             }}
@@ -226,6 +237,7 @@ export default class ExamEditor extends React.Component {
                         <Text style={{paddingTop: 20, paddingBottom: 20}}>
                             {this.state.description}
                         </Text>
+                        <Text h4>Points: {this.state.points}</Text>
                     </View>
 
                     <Text style={{padding: 20}} h2>Exam Questions</Text>

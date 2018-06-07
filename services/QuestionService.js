@@ -65,6 +65,43 @@ class QuestionService {
             method: 'PUT'
         })
     }
+
+    deleteMultipleChoiceQuestion(multiId) {
+        let url = "http://localhost:8080/api/multi/" + multiId;
+        return fetch(url, {
+            method: 'delete'
+        });
+    }
+
+    createTrueFalseQuestion(truefalse, examId) {
+        let url = "http://localhost:8080/api/exam/" + examId + "/truefalse";
+
+        return fetch(url, {
+            body: JSON.stringify(truefalse),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST'
+        })
+    }
+
+    updateTrueFalseQuestion(truefalse, truefalseId) {
+        let url = "http://localhost:8080/api/truefalse/" + truefalseId;
+        return fetch(url, {
+            body: JSON.stringify(truefalse),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'PUT'
+        })
+    }
+
+    deleteTrueFalseQuestion(truefalseId) {
+        let url = "http://localhost:8080/api/truefalse/" + truefalseId;
+        return fetch(url, {
+            method: 'delete'
+        });
+    }
 }
 
 export default QuestionService;

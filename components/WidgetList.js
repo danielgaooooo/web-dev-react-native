@@ -75,6 +75,7 @@ class WidgetList extends React.Component {
                                         .navigate('ExamEditor',
                                         {
                                             examId: widget.id,
+                                            points: widget.points,
                                             name: widget.name,
                                             description: widget.description,
                                             lessonId: state.lessonId
