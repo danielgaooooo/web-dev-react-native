@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, TextInput, Alert, ScrollView} from 'react-native'
-import {Button, FormInput, FormLabel, ListItem, Text, CheckBox} from 'react-native-elements'
+import {Button, FormInput, FormLabel, ListItem, Text, Divider} from 'react-native-elements'
 import QuestionService from "../../services/QuestionService";
 
 class FillInTheBlanketQuestionWidget extends React.Component {
@@ -49,8 +49,8 @@ class FillInTheBlanketQuestionWidget extends React.Component {
 
     updateVariable(text, index) {
         let variables = this.state.variables.filter(variable => {
-            if (variables.id === index) {
-                variables.value = text
+            if (variable.id === index) {
+                variable.value = text
             }
             return true;
         });
@@ -124,7 +124,7 @@ class FillInTheBlanketQuestionWidget extends React.Component {
                                placeholder={this.state.points.toString()}
                                value={this.state.points.toString()}/>
 
-                    <FormLabel>Inputs</FormLabel>
+                    <FormLabel>Questions, with inputs formatted [variable=value]</FormLabel>
                     <View style={{padding: 20}}>
                         {this.state.variables.map((variable, index) => (
                             <View key={index + 5}>
@@ -155,10 +155,36 @@ class FillInTheBlanketQuestionWidget extends React.Component {
                         <Text h2>{this.state.title}</Text>
                         <Text>{this.state.description}</Text>
                         <Text h3>Points: {this.state.points.toString()}</Text>
-                        {this.state.variables.map((item, index) => (
-                            <ListItem title={item.value}
-                                      key={index}/>
-                        ))}
+                        <Divider style={{
+                            backgroundColor:
+                                'blue'
+                        }}/>
+                        {this.state.variables.map((item, index) => {
+                            let temp = item.value.split('[').filter(item => (item.indexOf(']') < 0))[0];
+                            let inputComesFirst = false;
+                            let matches;
+                            if (temp === '') {
+                                matches = item.value.split(']')[1];
+                                inputComesFirst = true;
+                            } else {
+                                matches = temp;
+                            }
+                            if (inputComesFirst) {
+                                return (
+                                    <View style={{paddingTop: 20, flex: 1, flexDirection: 'row'}}>
+                                        <TextInput style={{backgroundColor: 'white', width: 100}}/>
+                                        <Text key={index} h4>{matches}</Text>
+                                    </View>
+                                )
+                            } else {
+                                return (
+                                    <View style={{paddingTop: 20, flex: 1, flexDirection: 'row'}}>
+                                        <Text key={index} h4>{matches}</Text>
+                                        <TextInput style={{backgroundColor: 'white', width: 100}}/>
+                                    </View>
+                                )
+                            }
+                        })}
                     </View>
                     <Button title="Back to editing"
                             style={{paddingTop: 20}}
