@@ -1,7 +1,8 @@
 import React from 'react'
-import {View, TextInput, Alert} from 'react-native'
+import {View, TextInput, Alert, ScrollView} from 'react-native'
 import {Text, Button, ListItem, CheckBox} from 'react-native-elements'
 import {FormLabel, FormInput} from 'react-native-elements'
+import QuestionService from '../../services/QuestionService';
 
 class MultipleChoiceQuestionWidget extends React.Component {
 
@@ -11,21 +12,19 @@ class MultipleChoiceQuestionWidget extends React.Component {
         super(props);
         this.state = {
             title: 'Default title',
-            description: 'Default description.',
+            description: 'Default description',
             points: 0,
             options: [],
+            correctOption: {id: -1, value: ''},
             preview: false,
             displayId: 0
         };
+        this.questionService = QuestionService.instance;
         this.updateForm = this.updateForm.bind(this);
         this.preview = this.preview.bind(this);
         this.previewOff = this.previewOff.bind(this);
         this.save = this.save.bind(this);
         this.cancel = this.cancel.bind(this);
-    }
-
-    componentWillReceiveProps(newProps) {
-        Alert.alert("Hello??")
     }
 
     componentDidMount() {
@@ -36,6 +35,15 @@ class MultipleChoiceQuestionWidget extends React.Component {
         this.setState({
             displayId: displayId,
             examId: examId,
+        })
+    }
+
+    markAsCorrect(value, id) {
+        this.setState({
+            correctOption: {
+                id: id,
+                value: value
+            }
         })
     }
 
@@ -73,7 +81,19 @@ class MultipleChoiceQuestionWidget extends React.Component {
     }
 
     save() {
+        let options = this.state.options.map(option => (option.value));
+        let stringOptions = options.join("\n");
+        let multi = {
+            title: this.state.title,
+            description: this.state.description,
+            points: this.state.points,
+            options: stringOptions,
+            correctOption: this.state.correctOption.value,
+            type: 'MultipleChoice'
+        };
 
+        this.questionService.createMultipleChoiceQuestion(multi, this.state.examId.toString())
+            .then(() => this.cancel());
     }
 
     cancel() {
@@ -83,7 +103,7 @@ class MultipleChoiceQuestionWidget extends React.Component {
 
     render() {
         return (
-            <View>
+            <ScrollView>
                 {!this.state.preview &&
                 <View>
                     <FormLabel>Title</FormLabel>
@@ -91,7 +111,9 @@ class MultipleChoiceQuestionWidget extends React.Component {
                         text => this.updateForm({title: text})
                     }
                                placeholder={this.state.title}
-                               value={this.state.title}/>
+                               value={
+                                   (this.state.title === 'Default title') ? '' : this.state.title
+                               }/>
 
                     <FormLabel>Description</FormLabel>
                     <View style={{padding: 20}}>
@@ -101,26 +123,10 @@ class MultipleChoiceQuestionWidget extends React.Component {
                                    multiline={true}
                                    style={{padding: 20}}
                                    placeholder={this.state.description}
-                                   value={this.state.description}
+                                   value={
+                                       (this.state.description === 'Default description') ? '' : this.state.description
+                                   }
                                    backgroundColor="white"/>
-                    </View>
-
-                    <FormLabel>Choices (separate each by new line)</FormLabel>
-                    <View style={{padding: 20}}>
-                        {this.state.options.map((option, index) => (
-                            <View>
-                                <FormInput value={option.value}
-                                           onChangeText={text =>
-                                               this.updateOption(text, index)
-                                           }/>
-                                <CheckBox onPress={() => (Alert.alert('checkmate'))}
-                                          checked={false} title='The answer is true'/>
-                            </View>
-                        ))}
-                        <Button title="Add new option"
-                                style={{paddingTop: 20}}
-                                backgroundColor="blue"
-                                onPress={() => this.addOption()}/>
                     </View>
 
                     <FormLabel>Points</FormLabel>
@@ -129,6 +135,38 @@ class MultipleChoiceQuestionWidget extends React.Component {
                     }
                                placeholder={this.state.points.toString()}
                                value={this.state.points.toString()}/>
+
+                    <FormLabel>Choices</FormLabel>
+                    <View style={{padding: 20}}>
+                        {this.state.options.map((option, index) => (
+                            <View key={index + 5}>
+                                {this.state.correctOption.id !== index &&
+                                <FormInput value={option.value}
+                                           style={{}}
+                                           key={index}
+                                           onChangeText={text =>
+                                               this.updateOption(text, index)
+                                           }/>}
+                                {this.state.correctOption.id === index &&
+                                <FormInput value={option.value}
+                                           key={index + 6}
+                                           containerStyle={{
+                                               backgroundColor: 'lightgreen'
+                                           }}
+                                           onChangeText={text =>
+                                               this.updateOption(text, index)
+                                           }/>}
+                                <CheckBox onPress={() => this.markAsCorrect(option.value, index)}
+                                          key={index + 7}
+                                          checked={index === this.state.correctOption.id}
+                                          title='Mark as correct option'/>
+                            </View>
+                        ))}
+                        <Button title="Add new option"
+                                style={{paddingTop: 20}}
+                                backgroundColor="blue"
+                                onPress={() => this.addOption()}/>
+                    </View>
                     <Button title="Preview"
                             style={{paddingTop: 20}}
                             backgroundColor="grey"
@@ -138,13 +176,16 @@ class MultipleChoiceQuestionWidget extends React.Component {
 
 
                 {this.state.preview &&
-                <View style={{padding: 20}}>
-                    <Text h2>{this.state.title}</Text>
-                    <Text>{this.state.description}</Text>
-                    <Text h3>Points: {this.state.points.toString()}</Text>
-                    {this.state.options.map(item => (
-                        <ListItem title={item.value}/>
-                    ))}
+                <View>
+                    <View style={{padding: 20}}>
+                        <Text h2>{this.state.title}</Text>
+                        <Text>{this.state.description}</Text>
+                        <Text h3>Points: {this.state.points.toString()}</Text>
+                        {this.state.options.map((item, index) => (
+                            <ListItem title={item.value}
+                                      key={index}/>
+                        ))}
+                    </View>
                     <Button title="Back to editing"
                             style={{paddingTop: 20}}
                             backgroundColor="grey"
@@ -161,7 +202,7 @@ class MultipleChoiceQuestionWidget extends React.Component {
                         onPress={() => this.cancel()}
                         color="white"
                         title="Cancel"/>
-            </View>
+            </ScrollView>
         )
     }
 

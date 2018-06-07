@@ -42,6 +42,18 @@ class QuestionService {
             method: 'PUT'
         })
     }
+
+    createMultipleChoiceQuestion(multi, examId) {
+        let url = "http://localhost:8080/api/exam/" + examId + "/multi";
+
+        return fetch(url, {
+            body: JSON.stringify(multi),
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST'
+        })
+    }
 }
 
 export default QuestionService;

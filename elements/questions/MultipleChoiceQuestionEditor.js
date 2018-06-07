@@ -3,7 +3,7 @@ import {View} from 'react-native'
 
 export default class MultipleChoiceQuestionEditor extends React.Component {
 
-    static navigationOptions = {title: 'Editing Multiple Choice Question'};
+    static navigationOptions = {title: 'Editing Multiple Choice'};
 
     render() {
         return (
